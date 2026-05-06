@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabriella XV Anos</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:#0d0800;font-family:'Cormorant Garamond',serif;overflow-x:hidden;}
+section{width:100%;display:flex;align-items:center;justify-content:center;background:#0d0800;}
+.full{width:100%;max-width:480px;display:block;margin:0 auto;height:auto;}
+
+#music-bar{
+  position:fixed;bottom:20px;right:16px;z-index:9999;
+  background:rgba(13,8,0,0.9);border:1px solid #c9a84c;
+  border-radius:50px;padding:10px 16px;display:flex;
+  align-items:center;gap:8px;cursor:pointer;
+  box-shadow:0 4px 20px rgba(201,168,76,0.3);
+}
+#music-bar span{color:#c9a84c;font-size:20px;}
+#music-bar p{color:#f5e6c8;font-size:10px;font-family:'Cormorant Garamond',serif;line-height:1.3;}
+#music-bar p strong{color:#c9a84c;font-size:11px;display:block;}
+
+.data-box{width:100%;max-width:480px;margin:0 auto;padding:50px 30px;text-align:center;background:linear-gradient(180deg,#1a0f00,#0d0800);}
+.data-inner{border:2px solid #c9a84c;border-radius:16px;padding:40px 24px;background:rgba(201,168,76,0.04);}
+.data-label{color:#c9a84c;font-size:12px;letter-spacing:4px;text-transform:uppercase;margin-bottom:16px;}
+.data-num{color:#f0d080;font-family:'Playfair Display',serif;font-size:50px;font-weight:700;line-height:1;}
+.data-div{width:50px;height:1px;background:#c9a84c;margin:18px auto;}
+.data-local{color:#f5e6c8;font-family:'Playfair Display',serif;font-size:26px;margin-bottom:12px;}
+.data-addr{color:#c9a84c;font-size:13px;line-height:1.9;}
+
+#countdown-section{background:#0d0800;padding:36px 20px;text-align:center;}
+.cd-title{color:#c9a84c;font-family:'Playfair Display',serif;font-size:18px;letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;}
+.cd-grid{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.cd-box{background:rgba(201,168,76,0.08);border:1px solid #c9a84c;border-radius:12px;padding:14px 16px;min-width:66px;}
+.cd-num{display:block;color:#f0d080;font-family:'Playfair Display',serif;font-size:32px;font-weight:700;line-height:1;}
+.cd-lbl{display:block;color:#c9a84c;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-top:5px;}
+
+.icones-col{width:100%;max-width:480px;margin:0 auto;padding:40px 24px;display:flex;flex-direction:column;gap:20px;align-items:center;}
+.icone-btn-wrap{width:100%;max-width:280px;cursor:pointer;text-decoration:none;}
+.icone-card{border:2px solid #c9a84c;border-radius:20px;padding:24px 16px;text-align:center;background:rgba(201,168,76,0.06);}
+.icone-card p.ico{font-size:44px;margin-bottom:10px;}
+.icone-card p.tit{color:#f0d080;font-family:'Playfair Display',serif;font-size:15px;letter-spacing:2px;text-transform:uppercase;}
+.icone-card p.sub{color:#c9a84c;font-size:12px;letter-spacing:2px;margin-top:4px;}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:99999;align-items:center;justify-content:center;padding:16px;}
+.modal-overlay.active{display:flex;}
+.modal-box{background:#0d0800;border:2px solid #c9a84c;border-radius:16px;max-width:440px;width:100%;overflow:hidden;position:relative;max-height:90vh;overflow-y:auto;}
+.modal-close{position:sticky;top:10px;float:right;margin:10px 10px 0 0;background:rgba(13,8,0,0.9);border:1px solid #c9a84c;color:#c9a84c;font-size:18px;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10;}
+.pix-area{padding:20px;text-align:center;border-top:1px solid rgba(201,168,76,0.3);}
+.pix-key{color:#f0d080;font-family:'Playfair Display',serif;font-size:22px;font-weight:700;margin:8px 0 16px;}
+.pix-lbl{color:#c9a84c;font-size:12px;letter-spacing:2px;}
+.pix-btn{background:linear-gradient(135deg,#c9a84c,#f0d080);color:#0d0800;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;padding:12px 28px;border:none;border-radius:50px;cursor:pointer;letter-spacing:1px;}
+.pix-ok{color:#c9a84c;font-size:13px;margin-top:10px;display:none;}
+
+footer{background:#0a0600;padding:36px 20px;text-align:center;border-top:1px solid rgba(201,168,76,0.3);}
+</style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="https://archive.org/download/geoffharvey-the-princess-and-her-jewels-120679_202605/geoffharvey-the-princess-and-her-jewels-120679_202605.mp3" type="audio/mpeg">
+</audio>
+
+<div id="music-bar" onclick="toggleMusic()">
+  <span id="music-icon">🎵</span>
+  <p><strong>The Princess & Her Jewels</strong>Geoff Harvey</p>
+</div>
+
+<!-- 1. CAPA -->
+<section>
+  <img class="full" loading="lazy" src="https://i.ibb.co/bgcxsJmL/IMG-1946.png" alt="Capa Gabriella">
+</section>
+
+<!-- 2. CONVITE -->
+<section>
+  <img class="full" loading="lazy" src="https://i.ibb.co/C33cPTj4/Momentos-m-gicos-merecem-ser-divididos-com-pessoas-como-3.png" alt="Convite">
+</section>
+
+<!-- 3. FOTO PORTA -->
+<section>
+  <img class="full" loading="lazy" src="https://i.ibb.co/zTGGQWP4/2-AF253-CC-09-F8-4762-9785-5-E966473-ADC8.png" alt="Gabriella">
+</section>
+
+<!-- 4. DATA E LOCAL -->
+<section>
+  <div class="data-box">
+    <div class="data-inner">
+      <p class="data-label">✦ Dia ✦</p>
+      <p class="data-num">23/05/26</p>
+      <div class="data-div"></div>
+      <p class="data-label">Às</p>
+      <p class="data-num">19h30</p>
+      <div class="data-div"></div>
+      <p class="data-label">Local</p>
+      <p class="data-local">Espaço Mix</p>
+      <p class="data-addr">
+        Rua Prof. Álvaro Barcelos, 25<br>
+        Vila da Rainha<br>
+        Campos dos Goytacazes
+      </p>
+      <p style="margin-top:20px;font-size:28px;">🐸</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTAGEM REGRESSIVA -->
+<section id="countdown-section">
+  <div>
+    <p class="cd-title">✦ Faltam ✦</p>
+    <div class="cd-grid">
+      <div class="cd-box"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">Dias</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">Horas</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">Min</span></div>
+      <div class="cd-box"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">Seg</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. FOTO PIANO -->
+<section>
+  <img class="full" loading="lazy" src="https://i.ibb.co/1GkLkh2Y/107-DDC47-C754-4115-8258-5976-FB0-F7765.png" alt="Gabriella piano">
+</section>
+
+<!-- 6. INSTRUÇÕES -->
+<section>
+  <img class="full" loading="lazy" src="https://i.ibb.co/zTRCpwXL/IMG-2304.png" alt="Instruções">
+</section>
+
+<!-- 7. ÍCONES INTERATIVOS -->
+<section>
+  <div class="icones-col">
+    <a class="icone-btn-wrap" href="https://wa.link/3bqhmp" target="_blank">
+      <div class="icone-card">
+        <p class="ico">🐸</p>
+        <p class="tit">CONFIRME</p>
+        <p class="sub">SUA PRESENÇA</p>
+      </div>
+    </a>
+    <div class="icone-btn-wrap" onclick="openModal('modal-presente')">
+      <div class="icone-card">
+        <p class="ico">🎁</p>
+        <p class="tit">DICAS DE</p>
+        <p class="sub">PRESENTE</p>
+      </div>
+    </div>
+    <a class="icone-btn-wrap" href="https://maps.app.goo.gl/X4CpDFcjUMN3WUUs7" target="_blank">
+      <div class="icone-card">
+        <p class="ico">📍</p>
+        <p class="tit">LOCALIZAÇÃO</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- 8. ESSE SONHO -->
+<section>
+  <img class="full" loading="lazy" src="https://i.ibb.co/N6pkTssR/A3-AD384-E-5-F14-4-CE5-B5-DD-820-F01-F5-D425.png" alt="Esse sonho">
+</section>
+
+<!-- 9. FOTO JARDIM SAPO -->
+<section>
+  <img class="full" loading="lazy" src="https://i.ibb.co/351q5kxp/4-FCE50-C0-7-E6-D-4-B3-C-A1-A4-CC64-DEB4-B9-A8.png" alt="Gabriella sapo">
+</section>
+
+<!-- RODAPÉ -->
+<footer>
+  <p style="color:#f0d080;font-family:'Playfair Display',serif;font-size:26px;font-style:italic;">Gabriella</p>
+  <p style="color:#c9a84c;font-size:11px;letter-spacing:4px;margin-top:8px;">XV ANOS · 23/05/2026</p>
+  <p style="color:rgba(201,168,76,0.4);font-size:13px;margin-top:16px;">🐸 ✦ 🌸 ✦ 👑</p>
+</footer>
+
+<!-- MODAL PRESENTE -->
+<div id="modal-presente" class="modal-overlay">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('modal-presente')">✕</button>
+    <img src="https://i.ibb.co/H31wdtJ/A3-AD384-E-5-F14-4-CE5-B5-DD-820-F01-F5-D425.png" style="width:100%;display:block;" alt="Sugestões de presentes">
+    <div class="pix-area">
+      <p class="pix-lbl">OPÇÃO VIA PIX</p>
+      <p class="pix-key">161.398.127-98</p>
+      <button class="pix-btn" onclick="copyPix()">📋 Copiar Chave PIX</button>
+      <p class="pix-ok" id="pix-ok">✅ Chave copiada!</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const music = document.getElementById('bgMusic');
+const icon = document.getElementById('music-icon');
+let playing = false;
+
+document.body.addEventListener('click', function init(){
+  if(!playing){ music.play().then(()=>{ playing=true; icon.textContent='🎵'; }).catch(()=>{}); }
+  document.body.removeEventListener('click', init);
+},{once:true});
+
+function toggleMusic(){
+  if(playing){ music.pause(); playing=false; icon.textContent='🔇'; }
+  else{ music.play(); playing=true; icon.textContent='🎵'; }
+}
+
+function openModal(id){ document.getElementById(id).classList.add('active'); document.body.style.overflow='hidden'; }
+function closeModal(id){ document.getElementById(id).classList.remove('active'); document.body.style.overflow=''; }
+document.querySelectorAll('.modal-overlay').forEach(m=>{
+  m.addEventListener('click',function(e){ if(e.target===this) closeModal(this.id); });
+});
+
+function copyPix(){
+  navigator.clipboard.writeText('161.398.127-98').then(()=>{
+    const el = document.getElementById('pix-ok');
+    el.style.display='block';
+    setTimeout(()=>el.style.display='none', 3000);
+  });
+}
+
+function tick(){
+  const diff = new Date('2026-05-23T19:30:00') - new Date();
+  if(diff<=0) return;
+  const d=Math.floor(diff/86400000);
+  const h=Math.floor((diff%86400000)/3600000);
+  const m=Math.floor((diff%3600000)/60000);
+  const s=Math.floor((diff%60000)/1000);
+  document.getElementById('cd-d').textContent=String(d).padStart(2,'0');
+  document.getElementById('cd-h').textContent=String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent=String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent=String(s).padStart(2,'0');
+}
+tick(); setInterval(tick,1000);
+</script>
+</body>
+</html>
