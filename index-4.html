@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabriella XV Anos</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0d0800; font-family:Georgia,serif; overflow-x:hidden; }
+
+/* CAPA / ABERTURA */
+#envelope-screen {
+  position:fixed; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  background:#0d0800; z-index:200; transition:opacity 0.8s;
+}
+#envelope-wrap { position:relative; width:min(88vw,400px); cursor:pointer; }
+#envelope-wrap img { width:100%; display:block; }
+#lacre-btn {
+  position:absolute; bottom:6%; left:50%; transform:translateX(-50%);
+  background:linear-gradient(135deg,#c9a84c,#f0d080);
+  color:#0d0800; border:none;
+  padding:14px 36px; border-radius:50px;
+  font-size:1rem; font-weight:bold; letter-spacing:2px;
+  font-family:Georgia,serif;
+  cursor:pointer; z-index:10;
+  box-shadow:0 4px 20px rgba(201,168,76,0.5);
+  -webkit-tap-highlight-color:transparent;
+}
+#lacre-btn:active { transform:translateX(-50%) scale(0.97); }
+
+/* CONVITE scroll */
+#convite-screen { display:none; }
+.page { position:relative; width:100%; max-width:480px; margin:0 auto; line-height:0; }
+.page img { width:100%; display:block; }
+
+/* HOTSPOTS */
+.hs {
+  position:absolute;
+  left:50%; transform:translateX(-50%);
+  width:38%;
+  background:transparent;
+  border:none;
+  cursor:pointer;
+  z-index:50;
+  padding:0;
+  -webkit-tap-highlight-color:rgba(212,175,55,0.3);
+  border-radius:50%;
+}
+
+/* MÚSICA */
+#music-btn {
+  position:fixed; bottom:20px; right:16px;
+  background:rgba(13,8,0,0.9); border:1px solid #c9a84c;
+  color:#c9a84c; border-radius:50px;
+  padding:10px 18px;
+  font-size:13px; letter-spacing:1px;
+  font-family:Georgia,serif;
+  cursor:pointer; z-index:300;
+  display:none;
+  box-shadow:0 4px 20px rgba(201,168,76,0.25);
+  -webkit-tap-highlight-color:transparent;
+}
+#music-btn:active { transform:scale(0.97); }
+
+/* MODAL */
+#modal {
+  position:fixed; inset:0;
+  background:rgba(0,0,0,0.92);
+  display:none;
+  align-items:center; justify-content:center;
+  z-index:400;
+  padding:16px;
+}
+#modal.open { display:flex; }
+#modal-box {
+  position:relative;
+  width:min(92vw,440px);
+  max-height:92vh; overflow-y:auto;
+  border-radius:12px;
+  background:#0d0800;
+  border:1px solid #c9a84c;
+}
+#modal-box img { width:100%; display:block; border-radius:12px 12px 0 0; }
+
+/* PIX AREA */
+#pix-area {
+  padding:20px;
+  text-align:center;
+  border-top:1px solid rgba(201,168,76,0.3);
+}
+#pix-label {
+  color:#c9a84c;
+  font-size:.78rem;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+#pix-key {
+  background:#1a1208;
+  color:#f0d080!important;
+  border:1px solid #c9a84c;
+  border-radius:10px;
+  padding:12px 14px;
+  text-align:center;
+  width:100%;
+  font-family:monospace;
+  font-size:1.1rem;
+  letter-spacing:2px;
+  font-weight:bold;
+  -webkit-text-fill-color:#f0d080;
+  margin-bottom:14px;
+  word-break:break-all;
+}
+#copy-btn {
+  background:linear-gradient(135deg,#c9a84c,#f0d080);
+  color:#0d0800;
+  border:none;
+  padding:12px 28px;
+  border-radius:50px;
+  font-size:1rem;
+  font-weight:bold;
+  cursor:pointer;
+  width:100%;
+  font-family:Georgia,serif;
+  -webkit-tap-highlight-color:transparent;
+}
+#copy-btn:active { transform:scale(0.97); }
+#copy-msg {
+  color:#c9a84c;
+  font-size:.9rem;
+  display:none;
+  font-weight:bold;
+  letter-spacing:1px;
+  margin-top:12px;
+}
+#close-modal {
+  position:absolute;
+  top:10px; right:12px;
+  background:rgba(0,0,0,0.6);
+  color:#fff;
+  border:1px solid #c9a84c;
+  width:36px; height:36px;
+  border-radius:50%;
+  font-size:1.3rem;
+  cursor:pointer;
+  line-height:32px;
+  text-align:center;
+  z-index:10;
+  -webkit-tap-highlight-color:transparent;
+}
+</style>
+</head>
+<body>
+
+<audio id="audio" loop preload="auto">
+  <source src="https://archive.org/download/geoffharvey-the-princess-and-her-jewels-120679_202605/geoffharvey-the-princess-and-her-jewels-120679_202605.mp3" type="audio/mpeg">
+</audio>
+
+<!-- CAPA DE ABERTURA -->
+<div id="envelope-screen">
+  <div id="envelope-wrap">
+    <img src="https://archive.org/download/momentos-magicos-merecem-ser-divididos-com-pessoas-como-3/930216CE-D960-4E4B-A8B3-D3AC7F2FBBD7.png" alt="Gabriella XV Anos">
+    <button id="lacre-btn" onclick="abrirConvite()">ABRIR CONVITE</button>
+  </div>
+</div>
+
+<!-- CONVITE -->
+<div id="convite-screen">
+
+  <!-- 1. MOMENTOS MÁGICOS -->
+  <div class="page"><img src="https://archive.org/download/momentos-magicos-merecem-ser-divididos-com-pessoas-como-3/Momentos%20ma%CC%81gicos%20merecem%20ser%20divididos%20com%20pessoas%20como%20-%203.png" alt="Momentos mágicos"></div>
+
+  <!-- 2. FOTO PORTA VERDE -->
+  <div class="page"><img src="https://archive.org/download/momentos-magicos-merecem-ser-divididos-com-pessoas-como-3/2AF253CC-09F8-4762-9785-5E966473ADC8.png" alt="Gabriella porta verde"></div>
+
+  <!-- 3. DATA, HORA E LOCAL -->
+  <div class="page"><img src="https://archive.org/download/momentos-magicos-merecem-ser-divididos-com-pessoas-como-3/f606d779-1760-40c3-a821-87ee0be2d4f9.jpeg" alt="Data hora e local"></div>
+
+  <!-- 4. FOTO PIANO -->
+  <div class="page"><img src="https://archive.org/download/momentos-magicos-merecem-ser-divididos-com-pessoas-como-3/107DDC47-C754-4115-8258-5976FB0F7765.png" alt="Gabriella no piano"></div>
+
+  <!-- 5. PARA TORNAR ESSA NOITE -->
+  <div class="page"><img src="https://archive.org/download/042-c-254-a-e-3-a-7-4-f-06-9-f-84-99-e-126-abd-713-3_202605/042C254A-E3A7-4F06-9F84-99E126ABD713%203.PNG" alt="Para tornar essa noite"></div>
+
+  <!-- 6. PÁGINA ÍCONES -->
+  <div class="page" style="position:relative;">
+    <img src="https://archive.org/download/momentos-magicos-merecem-ser-divididos-com-pessoas-como-3/6176f942-5f52-4419-96dd-eab709abdecd.jpeg" alt="Ícones interativos">
+
+    <!-- CONFIRMAR PRESENÇA -->
+    <button class="hs" style="top:5%; height:28%;"
+      onclick="window.open('https://wa.link/3bqhmp','_blank')"></button>
+
+    <!-- PRESENTES -->
+    <button class="hs" style="top:37%; height:28%;"
+      onclick="abrirPresentes()"></button>
+
+    <!-- LOCALIZAÇÃO -->
+    <button class="hs" style="top:69%; height:28%;"
+      onclick="window.open('https://maps.app.goo.gl/X4CpDFcjUMN3WUUs7','_blank')"></button>
+  </div>
+
+  <!-- 7. ESSE SONHO -->
+  <div class="page"><img src="https://archive.org/download/momentos-magicos-merecem-ser-divididos-com-pessoas-como-3/A3AD384E-5F14-4CE5-B5DD-820F01F5D425.png" alt="Esse sonho"></div>
+
+  <!-- 8. FOTO BEIJANDO O SAPO -->
+  <div class="page"><img src="https://archive.org/download/momentos-magicos-merecem-ser-divididos-com-pessoas-como-3/4FCE50C0-7E6D-4B3C-A1A4-CC64DEB4B9A8.png" alt="Gabriella beijando o sapo"></div>
+
+</div>
+
+<button id="music-btn" onclick="toggleMusic()">🔊</button>
+
+<!-- MODAL PRESENTES -->
+<div id="modal">
+  <div id="modal-box">
+    <button id="close-modal" onclick="fecharModal()">✕</button>
+    <img src="https://archive.org/download/momentos-magicos-merecem-ser-divididos-com-pessoas-como-3/228e57cf-d6b0-4d91-ba47-6d43a5f11aff.jpeg" alt="Sugestões de presentes">
+    <div id="pix-area">
+      <div id="pix-label">Chave Pix</div>
+      <div id="pix-key">161.398.127-98</div>
+      <button id="copy-btn" onclick="copiarPix()">📋 Copiar Chave Pix</button>
+      <span id="copy-msg">✅ Copiado com sucesso!</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const audio = document.getElementById('audio');
+let playing = false;
+
+function abrirConvite() {
+  const env = document.getElementById('envelope-screen');
+  env.style.opacity = '0';
+  audio.play().then(() => {
+    playing = true;
+    document.getElementById('music-btn').textContent = '🔊';
+  }).catch(e => console.log(e));
+  setTimeout(() => {
+    env.style.display = 'none';
+    document.getElementById('convite-screen').style.display = 'block';
+    document.getElementById('music-btn').style.display = 'flex';
+  }, 800);
+}
+
+function toggleMusic() {
+  const btn = document.getElementById('music-btn');
+  if (playing) { audio.pause(); playing=false; btn.textContent='🎵'; }
+  else { audio.play(); playing=true; btn.textContent='🔊'; }
+}
+
+function abrirPresentes() {
+  document.getElementById('modal').classList.add('open');
+}
+function fecharModal() {
+  document.getElementById('modal').classList.remove('open');
+}
+
+function copiarPix() {
+  const chave = '161.398.127-98';
+  const msg = document.getElementById('copy-msg');
+
+  function mostrarOk() {
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 2500);
+  }
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(chave).then(mostrarOk).catch(fallback);
+  } else {
+    fallback();
+  }
+
+  function fallback() {
+    try {
+      const t = document.createElement('textarea');
+      t.value = chave;
+      t.style.position = 'fixed';
+      t.style.left = '-9999px';
+      document.body.appendChild(t);
+      t.focus(); t.select();
+      document.execCommand('copy');
+      document.body.removeChild(t);
+      mostrarOk();
+    } catch(e) {
+      alert('Copie a chave: ' + chave);
+    }
+  }
+}
+
+// Fecha modal clicando fora
+document.getElementById('modal').addEventListener('click', function(e){
+  if (e.target === this) fecharModal();
+});
+</script>
+
+</body>
+</html>
